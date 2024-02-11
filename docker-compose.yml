@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    build:
+      context: .
+      dockerfile: WebApi/Dockerfile
+    depends_on: 
+        - database
+        - mongo
+  database:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: SqlServer
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "!1PasswordBackEnd."
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    hostname: backdb-container
+    volumes:
+      - ./database-data:/var/opt/mssql/data  # Volumen para SQL Server
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "!1PasswordBackEnd."
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    volumes:
+      - ./mongo-data:/data/db  # Volumen para MongoDB
+
