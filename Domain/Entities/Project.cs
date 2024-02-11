@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public string Descriptions { get; set; }
         public ICollection<Collaborator> Collaborators { get; set; }
-        public ICollection<Task> Tasks { get; set; }
+        public ICollection<TaskEntity> Tasks { get; set; }
 
     }
 }
