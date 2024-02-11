@@ -24,24 +24,25 @@ namespace Infrastruture.Migrations
 
             modelBuilder.Entity("Domain.Entities.Collaborator", b =>
                 {
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdProject")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("Owner")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("IdUser", "IdProject");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdProject");
 
                     b.ToTable("Collaborators");
                 });
@@ -56,19 +57,20 @@ namespace Infrastruture.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("Projects");
                 });
@@ -97,28 +99,31 @@ namespace Infrastruture.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Complete")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ManageId")
+                    b.Property<Guid>("IdManage")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdProject")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManageId");
+                    b.HasIndex("IdManage");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("IdProject");
 
                     b.ToTable("Tasks");
                 });
@@ -157,13 +162,13 @@ namespace Infrastruture.Migrations
                 {
                     b.HasOne("Domain.Entities.Project", "Project")
                         .WithMany("Collaborators")
-                        .HasForeignKey("ProjectId")
+                        .HasForeignKey("IdProject")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Collaborators")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -172,28 +177,17 @@ namespace Infrastruture.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Project", b =>
-                {
-                    b.HasOne("Domain.Entities.User", "Owner")
-                        .WithMany("Projects")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
             modelBuilder.Entity("Domain.Entities.TaskEntity", b =>
                 {
                     b.HasOne("Domain.Entities.User", "Manage")
-                        .WithMany()
-                        .HasForeignKey("ManageId")
+                        .WithMany("Tasks")
+                        .HasForeignKey("IdManage")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Project", "Project")
                         .WithMany("Tasks")
-                        .HasForeignKey("ProjectId")
+                        .HasForeignKey("IdProject")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -213,7 +207,7 @@ namespace Infrastruture.Migrations
                 {
                     b.Navigation("Collaborators");
 
-                    b.Navigation("Projects");
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,11 +1,16 @@
-﻿namespace Domain.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Domain.Entities
 {
     public class Project:BaseEntity
     {
-        public User Owner { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public string Name { get; set; }
         public string Descriptions { get; set; }
+        [JsonIgnore]
         public ICollection<Collaborator> Collaborators { get; set; }
+        [JsonIgnore]
         public ICollection<TaskEntity> Tasks { get; set; }
 
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Entities
@@ -12,7 +13,9 @@ namespace Domain.Entities
         public string Password { get; set; }
         public string Role { get; set; }
         public string Name { get; set; }
-        public ICollection<Project> Projects { get; set; }
-        public ICollection<Collaborator> Collaborators { get; set; }
+        [JsonIgnore]
+        public ICollection<Collaborator> Collaborators { get; set;}
+        [JsonIgnore]
+        public ICollection<TaskEntity> Tasks { get; set; }
     }
 }

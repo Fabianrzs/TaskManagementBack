@@ -1,5 +1,8 @@
 using Infrastruture.Context;
 using Infrastruture.Extensions;
+using Infrastruture.Seeders;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Site.Middleware;
 using System.Reflection;
 
@@ -44,6 +47,10 @@ namespace Site
             using var scope = app.ApplicationServices.GetService<IServiceScopeFactory>()?.CreateScope();
             if (scope == null) return;
             MigrateDbContextExtensions.MigrateDbContextServices<AppDbContext>(scope);
+            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            if (!context.Database.CanConnect()) return;
+            var start = new Start(context!);
+            start.Seed().Wait();
         }
     }
 
