@@ -27,7 +27,7 @@ namespace Infrastruture.Repositories
             return await _dbSet.Where(predicate).ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(object id)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -43,7 +43,7 @@ namespace Infrastruture.Repositories
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public async Task DeleteAsync(object id)
+        public async Task DeleteAsync(Guid id)
         {
             var entityToDelete = _dbSet.Find(id);
             if (entityToDelete != null)

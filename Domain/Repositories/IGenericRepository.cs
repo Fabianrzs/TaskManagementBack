@@ -7,10 +7,10 @@ namespace Domain.Repositories
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> GetByIdAsync(object id);
+        Task<TEntity> GetByIdAsync(Guid id);
         Task InsertAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(object id);
+        Task DeleteAsync(Guid id);
         Task<int> SaveAsync();
     }
 }

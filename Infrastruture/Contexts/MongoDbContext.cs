@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace Infrastruture.Context
 {
-    public class MongoDbContext<TEntity> where TEntity : BaseMongo
+    public class MongoDbContext<TEntity> where TEntity : BaseEntity
     {
         public readonly IMongoDatabase _database;
         public MongoDbContext(IOptions<CommentsDataBase> options)

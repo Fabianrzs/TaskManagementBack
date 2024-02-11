@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class Comment: BaseMongo
+    public class Comment: BaseEntity
     {
         public Guid Owner { get; set; }
         public Guid Relation { get; set; }
