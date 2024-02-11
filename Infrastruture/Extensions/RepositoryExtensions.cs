@@ -11,7 +11,7 @@ namespace Infrastruture.Extensions
     {
         public static IServiceCollection AddAplicationRepositories(this IServiceCollection svc)
         {
-            svc.AddSingleton<IUnitOfWork, UnitOfWork>();
+            svc.AddScoped<IUnitOfWork, UnitOfWork>();
             svc.AddTransient<ISampleRepository, SampleRepository>();
             svc.AddTransient<ICollaboratorRepository, CollaboratorRepository>();
             svc.AddTransient<IProjectRepository, ProjectRepository>();
