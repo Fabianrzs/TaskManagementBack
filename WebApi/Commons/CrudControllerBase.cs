@@ -36,7 +36,7 @@ namespace Site.Commons
         [HttpPut("{id}")]
         public virtual async Task<IActionResult> Update(Guid id, [FromBody] TDto dto)
         {
-            return Ok(await _service.UpdateAsync(dto)); // Aquí puedes pasar id si es necesario
+            return Ok(await _service.UpdateAsync(dto));
         }
 
         [HttpDelete("{id}")]
