@@ -12,6 +12,9 @@ namespace Infrastruture.Extensions
             svc.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(confg.GetConnectionString("DefaultConnection")
                 .Replace("{{DB_ENDPOINT}}", confg.GetValue<string>("DB_ENDPOINT"))));
+
+            svc.AddTransient<MongoDbContext>();
+
             return svc;
         }
     }

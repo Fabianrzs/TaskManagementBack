@@ -8,12 +8,12 @@ using System.Linq.Expressions;
 
 namespace Infrastruture.Repositories
 {
-    public abstract class MongoGenericRepository <TEntity> : IGenericRepository<TEntity> where TEntity : Domain.Entities.BaseEntity
+    public abstract class MongoGenericRepository <TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         public IMongoCollection<TEntity> _collection { get; set; }
-        public MongoGenericRepository(MongoDbContext<TEntity> dbContext)
+        public MongoGenericRepository(MongoDbContext dbContext)
         { 
-            _collection = dbContext.GetCollection();
+            _collection = dbContext.GetCollection<TEntity>();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -49,9 +49,9 @@ namespace Infrastruture.Repositories
             await _collection.InsertOneAsync(entity);
         }
 
-        public Task<int> SaveAsync()
+        public async Task<int> SaveAsync()
         {
-            throw new NotImplementedException();
+            return 1;
         }
 
     }

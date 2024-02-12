@@ -1,7 +1,5 @@
 ﻿using Aplication.Contracts;
 using Aplication.Interfaces;
-using Domain.Repositories;
-using Infrastruture.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastruture.Extensions
@@ -15,6 +13,7 @@ namespace Infrastruture.Extensions
             svc.AddTransient<IProjectService, ProjectService>();
             svc.AddTransient<ITaskEntityService, TaskEntityService>();
             svc.AddTransient<IUserService, UserService>();
+            svc.AddTransient<ICommentService, CommentService>();
 
             return svc;
         }

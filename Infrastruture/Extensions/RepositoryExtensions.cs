@@ -17,7 +17,7 @@ namespace Infrastruture.Extensions
             svc.AddTransient<IProjectRepository, ProjectRepository>();
             svc.AddTransient<ITaskRepository, TaskRepository>();
             svc.AddTransient<IUserRepository, UserRepository>();
-            svc.AddTransient<IGenericRepository, MongoGenericRepository>();
+            svc.AddTransient<ICommentRepository, CommentRepository>();
 
             return svc;
         }

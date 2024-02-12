@@ -6,7 +6,7 @@ namespace Infrastruture.Repositories
 {
     public class CommentRepository : MongoGenericRepository<Comment>, ICommentRepository
     {
-        public CommentRepository(MongoDbContext<Comment> dbContext) : base(dbContext)
+        public CommentRepository(MongoDbContext dbContext) : base(dbContext)
         {
         }
     }
