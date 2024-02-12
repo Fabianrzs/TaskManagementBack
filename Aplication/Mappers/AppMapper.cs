@@ -18,6 +18,8 @@ namespace Aplication.Dtos
                 .ReverseMap();
             CreateMap<Collaborator, CollaboratorDto>()
                 .ReverseMap();
+            CreateMap<Comment, CommentDto>()
+                .ReverseMap();
         }
     }
 }

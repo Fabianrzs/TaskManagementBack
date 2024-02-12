@@ -42,7 +42,7 @@ namespace Aplication.Contracts
             return new Response<IEnumerable<TDto>>(dtos);
         }
 
-        public async Task<Response<TDto>> GetByIdAsync<TDto>(object id)
+        public async Task<Response<TDto>> GetByIdAsync<TDto>(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);
             var dto = _mapper.Map<TEntity, TDto>(entity);
@@ -78,7 +78,7 @@ namespace Aplication.Contracts
             return new Response<TDto>(dto);
         }
 
-        public async Task<Response<object>> DeleteAsync(object id)
+        public async Task<Response<object>> DeleteAsync(Guid id)
         {
             var existingEntity = await _repository.GetByIdAsync(id);
             if (existingEntity == null)
