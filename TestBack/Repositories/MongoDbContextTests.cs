@@ -19,8 +19,8 @@ namespace TestBack.Repositories
                 DatabaseName = "TaskManagament"
             });
 
-            var context = new MongoDbContext<Comment>(options);
-            _collection = context.GetCollection();
+            var context = new MongoDbContext(options);
+            _collection = context.GetCollection<Comment>();
         }
 
         [TestMethod]

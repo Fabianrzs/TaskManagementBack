@@ -16,9 +16,9 @@ namespace Site
             var services = builder.Services; 
             var configuration = builder.Configuration;
 
-            services.AddAppDbContextServices(configuration)
-                .AddSwaggerServices().AddAutoMapper(Assembly.Load("Aplication"))
+            services.BuilderAppSetting(configuration).AddAppDbContextServices(configuration)
                 .AddAuthenticationServices(configuration).AddCorsServices(configuration)
+                .AddSwaggerServices().AddAutoMapper(Assembly.Load("Aplication"))
                 .AddAplicationRepositories().AddAplicationServices();
 
             builder.Services.AddControllers();
