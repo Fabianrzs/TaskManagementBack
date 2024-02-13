@@ -2,11 +2,10 @@
 {
     public class TaskEntityDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Complete { get; set; } = false;
-        public Guid IdManage { get; set; }
         public Guid IdProject { get; set; }
     }
 }

@@ -2,7 +2,10 @@
 using Aplication.Mappers;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
+using System;
 using WebApi.Commons;
+using System.Threading.Tasks;
 
 namespace Site.Controllers
 {
@@ -12,10 +15,13 @@ namespace Site.Controllers
         {
         }
 
-        [HttpGet("/{userId}")]
+        [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetAll(Guid userId)
         {
-            return Ok(await _service.GetAllAsync<ProjectDto>());
+            var proyects = await _service.GetAllAsync<ProjectDto>();
+            proyects.Data.ToList().ForEach(task => task.Owner = userId);
+
+            return Ok(proyects);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Aplication.Contracts
 
         public async Task<Response<TokenClaims>> Token(TokenRequest user)
         {
-            var response = await _repository.GetAsync(x => x.Password == user.Password && user.User == x.UserName);
+            var response = await _repository.GetAsync(x => x.Password == user.Password && user.UserName == x.UserName);
             if (response.FirstOrDefault() == null)
             {
                 throw new NoContentException($"No User found.");
