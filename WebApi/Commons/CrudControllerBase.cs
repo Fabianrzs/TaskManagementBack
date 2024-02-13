@@ -1,8 +1,9 @@
 ﻿using Aplication.Interfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Site.Commons
+namespace WebApi.Commons
 {
     [ApiController]
     [Route("api/[controller]")]

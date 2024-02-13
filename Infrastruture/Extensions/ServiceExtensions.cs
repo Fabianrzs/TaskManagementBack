@@ -14,6 +14,7 @@ namespace Infrastruture.Extensions
             svc.AddTransient<ITaskEntityService, TaskEntityService>();
             svc.AddTransient<IUserService, UserService>();
             svc.AddTransient<ICommentService, CommentService>();
+            svc.AddTransient<IOauthService, OauthService>();
 
             return svc;
         }

@@ -1,6 +1,7 @@
 ﻿using Aplication.Mappers;
 using AutoMapper;
 using Domain.Entities;
+using WebApi.Commons;
 
 namespace Aplication.Dtos
 {
@@ -20,6 +21,11 @@ namespace Aplication.Dtos
                 .ReverseMap();
             CreateMap<Comment, CommentDto>()
                 .ReverseMap();
+            CreateMap<User, TokenClaims>()
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+               .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ReverseMap();
+
         }
     }
 }
