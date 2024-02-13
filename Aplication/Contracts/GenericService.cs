@@ -11,9 +11,9 @@ namespace Aplication.Contracts
     public class GenericService<TEntity> : IGenericService<TEntity> where TEntity : BaseEntity
     {
 
-        private readonly IGenericRepository<TEntity> _repository;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        public readonly IGenericRepository<TEntity> _repository;
+        public readonly IUnitOfWork _unitOfWork;
+        public readonly IMapper _mapper;
 
         public GenericService(IGenericRepository<TEntity> repository, IUnitOfWork unitOfWork, IMapper mapper)
         {

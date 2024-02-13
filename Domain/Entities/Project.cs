@@ -8,8 +8,9 @@ namespace Domain.Entities
         public DateTime End { get; set; }
         public string Name { get; set; }
         public string Descriptions { get; set; }
+        public Guid IdUser { get; set; }
         [JsonIgnore]
-        public ICollection<Collaborator> Collaborators { get; set; }
+        public User User { get; set; }
         [JsonIgnore]
         public ICollection<TaskEntity> Tasks { get; set; }
 

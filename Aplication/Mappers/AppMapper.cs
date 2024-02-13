@@ -16,6 +16,7 @@ namespace Aplication.Dtos
             CreateMap<TaskEntity, TaskEntityDto>()
                 .ReverseMap();
             CreateMap<Project, ProjectDto>()
+                .ForMember(dest => dest.Owner, opt => opt.MapFrom(src => src.IdUser))
                 .ReverseMap();
             CreateMap<Collaborator, CollaboratorDto>()
                 .ReverseMap();

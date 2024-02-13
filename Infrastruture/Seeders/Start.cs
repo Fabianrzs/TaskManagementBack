@@ -20,7 +20,6 @@ namespace Infrastruture.Seeders
             {
                 if (!_context.Users.Any()) await SeedUsers();
                 if (!_context.Projects.Any()) await SeedProyects();
-                if (!_context.Collaborators.Any()) await SeedCollaborators();
                 if (!_context.Tasks.Any()) await SeedTasks();
             }
             catch (AppException e)
@@ -66,6 +65,7 @@ namespace Infrastruture.Seeders
 
         private async Task SeedProyects()
         {
+            var users = await _context.Users.ToListAsync();
             var projects = new List<Project>();
 
             var random = new Random();
@@ -78,6 +78,7 @@ namespace Infrastruture.Seeders
                     Descriptions = $"Descripción del Project {i}",
                     Start = DateTime.Now,
                     End = DateTime.Now,
+                    IdUser = users[random.Next(users.Count)].Id
                 };
                 projects.Add(project);
             }
@@ -87,40 +88,8 @@ namespace Infrastruture.Seeders
 
         }
 
-        private async Task SeedCollaborators()
-        {
-            var users = await _context.Users.ToListAsync();
-            var proyects = await _context.Projects.ToListAsync();
-
-            var random = new Random();
-
-            var collaborators = new List<Collaborator>();
-
-            foreach (var i in Enumerable.Range(1, 50))
-            {
-                var userId = users[random.Next(users.Count)].Id;
-                var projectId = proyects[random.Next(proyects.Count)].Id;
-
-                if (!collaborators.Any(c => c.IdUser == userId && c.IdProject == projectId))
-                {
-                    var collaborator = new Collaborator
-                    {
-                        IdUser = userId,
-                        IdProject = projectId,
-                        Owner = !collaborators.Exists(x => x.IdProject == projectId)
-                    };
-                    collaborators.Add(collaborator);
-                }
-            }
-
-
-            await _context.AddRangeAsync(collaborators);
-            await _context.SaveChangesAsync();
-        }
-
         private async Task SeedTasks()
         {
-            var users = await _context.Users.ToListAsync();
             var proyects = await _context.Projects.ToListAsync();
 
             var random = new Random();
@@ -133,7 +102,6 @@ namespace Infrastruture.Seeders
                     Name = $"Tarea {i}",
                     Description = $"Descripción de la Tarea {i}",
                     Complete = random.Next(10)%2 == 0,
-                    IdManage = users[random.Next(users.Count)].Id, 
                     IdProject = proyects[random.Next(proyects.Count)].Id 
                 };
                 tasks.Add(tarea);

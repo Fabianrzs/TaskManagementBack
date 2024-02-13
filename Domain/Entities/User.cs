@@ -9,8 +9,6 @@ namespace Domain.Entities
         public string Role { get; set; } = "User";
         public string Name { get; set; }
         [JsonIgnore]
-        public ICollection<Collaborator> Collaborators { get; set;}
-        [JsonIgnore]
-        public ICollection<TaskEntity> Tasks { get; set; }
+        public ICollection<Project> Projects { get; set;}
     }
 }

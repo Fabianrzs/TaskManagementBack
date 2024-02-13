@@ -22,7 +22,12 @@ namespace WebApi.Controllers
         {
             var response = await _authService.Token(request);
             var token = JwtHandler.GenerateAccessToken(response.Data);
-            return Ok(token);
+            return Ok(new
+            {
+                id = response.Data.Id,
+                name = response.Data.Name,
+                token
+            });
         }
         [HttpPost("Refresh")]
         public virtual async Task<IActionResult> Refresh()
